@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using OpenReservation.Business;
 using OpenReservation.Helpers;
@@ -30,6 +30,7 @@ public class SystemSettingsController(
     /// 系统设置首页
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
@@ -40,6 +41,7 @@ public class SystemSettingsController(
     /// </summary>
     /// <param name="search">分页信息，查询条件</param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult List(SearchHelperModel search)
     {
         //默认查询所有
@@ -48,7 +50,7 @@ public class SystemSettingsController(
         {
             whereLambda = (s => s.SettingName.Contains(search.SearchItem1));
         }
-        var settingsList = bLlSystemSettings.Paged(search.PageIndex, search.PageSize,
+        var settingsList = bLlSystemSettings.Paged(search.PageNumber, search.PageSize,
             whereLambda, s => s.SettingName);
         var data = settingsList.ToPagedList();
         return View(data);
@@ -59,6 +61,7 @@ public class SystemSettingsController(
     /// </summary>
     /// <param name="setting">设置</param>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult AddSetting(SystemSettings setting)
     {
         try
@@ -85,6 +88,7 @@ public class SystemSettingsController(
     /// </summary>
     /// <param name="setting">设置</param>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult UpdateSettings(SystemSettings setting)
     {
         try
@@ -108,6 +112,7 @@ public class SystemSettingsController(
     /// <summary>
     /// 重新加载系统配置
     /// </summary>
+    [HttpPost]
     public IActionResult ReloadConfiguration()
     {
         if (HttpContext.RequestServices.GetService<IConfiguration>() is IConfigurationRoot configurationRoot)

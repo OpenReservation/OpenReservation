@@ -22,11 +22,13 @@ public class HomeController(
 {
     private string SiteUrl => Request.Scheme + "://" + Request.Host.Value;
 
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
     }
 
+    [HttpPost]
     public async Task UploadFile()
     {
         //file root dir path 文件保存目录路径
@@ -64,6 +66,7 @@ public class HomeController(
             Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
         {
             await ShowError($"上传文件扩展名是不允许的扩展名。\n只允许{extTable[dirName]}格式。");
+            return;
         }
         savePath += dirName + "/";
         var ymd = DateTime.UtcNow.ToString("yyyyMM");
@@ -98,6 +101,7 @@ public class HomeController(
         }.ToJson().GetBytes());
     }
 
+    [HttpGet]
     public ActionResult FileManager()
     {
         //根目录路径，相对路径

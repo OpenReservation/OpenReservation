@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +27,13 @@ public class BlockEntityController(
     : AdminBaseController(logger, operLogHelper)
 {
     // GET: Admin/BlockEntity
+    [HttpGet]
     public ActionResult Index()
     {
         return View(HttpContext.RequestServices.GetRequiredService<IBLLBlockType>().Select(_ => true));
     }
 
+    [HttpGet]
     public JsonResult BlockTypes()
     {
         return Json(HttpContext.RequestServices.GetRequiredService<IBLLBlockType>().Get());
@@ -42,6 +44,7 @@ public class BlockEntityController(
     /// </summary>
     /// <param name="search"></param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult List(SearchHelperModel search)
     {
         //默认查询全部
@@ -71,7 +74,7 @@ public class BlockEntityController(
             var blockList = bLlBlockEntity.GetPagedList(queryBuilder => queryBuilder
                 .WithPredict(whereLambda)
                 .WithInclude(q => q.Include(b => b.BlockType))
-                .WithOrderBy(q => q.OrderByDescending(b => b.BlockTime)), search.PageIndex, search.PageSize);
+                .WithOrderBy(q => q.OrderByDescending(b => b.BlockTime)), search.PageNumber, search.PageSize);
             var dataList = blockList.ToPagedList();
             return View(dataList);
         }
@@ -86,6 +89,7 @@ public class BlockEntityController(
     /// 添加到黑名单
     /// </summary>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult AddEntity(Guid typeId, string blockValue)
     {
         if (ModelState.IsValid)
@@ -128,6 +132,7 @@ public class BlockEntityController(
     /// <param name="entityName"></param>
     /// <param name="status">状态</param>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult UpdateEntityStatus(Guid entityId, string entityName, int status)
     {
         try
@@ -155,6 +160,7 @@ public class BlockEntityController(
     /// <param name="entityId">黑名单数据id</param>
     /// <param name="entityName">黑名单数据名称</param>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult DeleteEntity(Guid entityId, string entityName)
     {
         try

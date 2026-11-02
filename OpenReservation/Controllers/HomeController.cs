@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +33,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
         return LocalRedirect(returnUrl);
     }
 
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
@@ -43,6 +44,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// </summary>
     /// <param name="search"></param>
     /// <returns></returns>
+    [HttpGet]
     public async Task<ActionResult> ReservationList(SearchHelperModel search)
     {
         Expression<Func<Reservation, bool>> whereLambda = (m => m.ReservationStatus != ReservationStatus.Canceled);
@@ -74,7 +76,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
                 .WithOrderBy(query =>
                     query.OrderByDescending(r => r.ReservationForDate).ThenByDescending(r => r.ReservationTime))
                 .WithInclude(query => query.Include(r => r.Place))
-            , search.PageIndex, search.PageSize);
+            , search.PageNumber, search.PageSize);
 
         var dataList = list.ToPagedList();
         return View(dataList);
@@ -85,6 +87,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// </summary>
     /// <returns></returns>
     [Authorize]
+    [HttpGet]
     public ActionResult Reservate()
     {
         var places = HttpContext.RequestServices.GetRequiredService<IBLLReservationPlace>()
@@ -99,6 +102,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// 预约日期是否可以预约
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult IsReservationForDateValid(DateTime reservationForDate)
     {
         var isValid = HttpContext.RequestServices.GetRequiredService<ReservationHelper>()
@@ -121,6 +125,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// <param name="placeId">预约地点id</param>
     /// <param name="reservationHelper"></param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult GetAvailablePeriods(DateTime dt, Guid placeId, [FromServices] ReservationHelper reservationHelper)
     {
         var periodsStatus = reservationHelper.GetAvailablePeriodsByDateAndPlace(dt, placeId);
@@ -181,6 +186,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// Print
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult Check(Guid id, string phone)
     {
         if (id == Guid.Empty)
@@ -209,12 +215,14 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// 公告
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult Notice() => View();
 
     /// <summary>
     /// 公告列表
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public async Task<ActionResult> NoticeList(SearchHelperModel search, [FromServices] IBLLNotice noticeService)
     {
         Expression<Func<Notice, bool>> whereExpression = (n => !n.IsDeleted && n.CheckStatus);
@@ -224,7 +232,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
         }
         try
         {
-            var noticeList = await noticeService.PagedAsync(search.PageIndex, search.PageSize, whereExpression,
+            var noticeList = await noticeService.PagedAsync(search.PageNumber, search.PageSize, whereExpression,
                 n => n.NoticePublishTime);
             var data = noticeList.ToPagedList();
             return View(data);
@@ -243,6 +251,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     /// <param name="eventBus"></param>
     /// <param name="cacheClient"></param>
     /// <returns></returns>
+    [HttpGet]
     public async Task<ActionResult> NoticeDetails(string path, [FromServices] IEventBus eventBus, [FromServices] IMemoryCache cacheClient)
     {
         path = path?.Trim();
@@ -278,6 +287,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
         });
     }
 
+    [HttpGet]
     public ActionResult About()
     {
         return View();

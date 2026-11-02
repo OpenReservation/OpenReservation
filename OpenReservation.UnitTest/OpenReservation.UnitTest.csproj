@@ -19,6 +19,7 @@
       <ProjectReference Include="..\OpenReservation.API\OpenReservation.API.csproj" />
       <ProjectReference Include="..\OpenReservation.Common\OpenReservation.Common.csproj" />
       <ProjectReference Include="..\OpenReservation.Helper\OpenReservation.Helper.csproj" />
+      <ProjectReference Include="..\OpenReservation\OpenReservation.csproj" />
     </ItemGroup>
 
 </Project>

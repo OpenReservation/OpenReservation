@@ -12,6 +12,7 @@ using WeihanLi.EntityFramework;
 
 namespace OpenReservation.API;
 
+[Route("/api/v1/reservation-places")]
 public class ReservationPlacesController(
     ILogger<ReservationPlacesController> logger,
     IEFRepository<ReservationDbContext, ReservationPlace> repository)
@@ -48,6 +49,22 @@ public class ReservationPlacesController(
     {
         var result = HttpContext.RequestServices.GetRequiredService<ReservationHelper>()
             .GetAvailablePeriodsByDateAndPlace(dt, placeId);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Gets the availability for a reservation place on a date.
+    /// </summary>
+    [HttpGet("/api/v1/reservation-places/{placeId}/availability")]
+    public IActionResult GetAvailability(Guid placeId, [FromQuery] DateTime date)
+    {
+        if (placeId == Guid.Empty || date == default)
+        {
+            return BadRequest();
+        }
+
+        var result = HttpContext.RequestServices.GetRequiredService<ReservationHelper>()
+            .GetAvailablePeriodsByDateAndPlace(date, placeId);
         return Ok(result);
     }
 }

@@ -12,7 +12,7 @@ public class NoticeControllerTest(APITestFixture fixture) : ControllerTestBase(f
     [Fact]
     public async Task GetNoticeList()
     {
-        var result = await Client.GetFromJsonAsync<PagedListResult<Notice>>("/api/notice");
+        var result = await Client.GetFromJsonAsync<PagedListResult<Notice>>("/api/v1/notices?pageNumber=1&pageSize=10");
         Assert.NotNull(result);
     }
 
@@ -20,7 +20,7 @@ public class NoticeControllerTest(APITestFixture fixture) : ControllerTestBase(f
     public async Task GetNoticeDetails()
     {
         var path = "test-notice";
-        var result = await Client.GetFromJsonAsync<Notice>($"/api/notice/{path}");
+        var result = await Client.GetFromJsonAsync<Notice>($"/api/v1/notices/{path}");
         Assert.NotNull(result);
         Assert.Equal(path, result.NoticeCustomPath);
     }
@@ -28,7 +28,7 @@ public class NoticeControllerTest(APITestFixture fixture) : ControllerTestBase(f
     [Fact]
     public async Task GetNoticeDetails_NotFound()
     {
-        using var response = await Client.GetAsync("/api/notice/test-notice1212");
+        using var response = await Client.GetAsync("/api/v1/notices/test-notice1212");
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }

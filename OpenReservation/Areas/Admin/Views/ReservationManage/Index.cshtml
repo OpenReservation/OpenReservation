@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "预约列表";
 }
 @section styles{
@@ -45,20 +45,20 @@
 </div>
 @section scripts{
     <script>
-        var pageSize = 10, pageIndex = 1;
+        var pageSize = 10, pageNumber = 1;
 
         //加载数据
         function loadData(pIndex) {
             if (!pIndex) {
-                pageIndex = 1;
+                pageNumber = 1;
             } else {
-                pageIndex = pIndex;
+                pageNumber = pIndex;
             }
             $("#div_main").html('<br /><img src="/images/loading.gif" /> 正在玩命加载中，请稍后...');
             $.ajax({
                 url: "/Admin/ReservationManage/List",
                 data: {
-                    "PageIndex": pageIndex,
+                    "PageNumber": pageNumber,
                     "PageSize": pageSize,
                     "SearchItem0": "",
                     "SearchItem1": $("#contactPhone").val(),
@@ -92,7 +92,7 @@
                                 function (data) {
                                     if (data) {
                                         layer.msg("更新成功");
-                                        loadData(pageIndex);
+                                        loadData(pageNumber);
                                     } else {
                                         layer.msg("更新失败");
                                     }
@@ -121,7 +121,7 @@
                                 function (data) {
                                     if (data) {
                                         layer.msg("删除预约记录成功");
-                                        loadData(pageIndex);
+                                        loadData(pageNumber);
                                     } else {
                                         layer.msg("删除预约记录失败");
                                     }

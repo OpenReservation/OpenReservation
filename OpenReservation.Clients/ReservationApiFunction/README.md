@@ -80,9 +80,10 @@ dist.zip
 
 我们访问下面的路径就可以访问到我们的 api 了，示例：
 
-<https://service-balxf7hr-1251288923.ap-shanghai.apigateway.myqcloud.com/release/reservationWxAppGateway/api/notice>
+<https://service-balxf7hr-1251288923.ap-shanghai.apigateway.myqcloud.com/release/reservationWxAppGateway/api/v1/notices>
 
-这个请求会实际转发到 <https://reservation.weihanli.xyz/api/notice>
+这个请求会实际转发到 <https://reservation.weihanli.xyz/api/v1/notices>。云函数也会将旧版
+`/api/notice`、`/api/reservation` 和 `/api/reservationPlaces` 路径迁移到对应的 v1 资源路径。
 
 ## 实现原理
 

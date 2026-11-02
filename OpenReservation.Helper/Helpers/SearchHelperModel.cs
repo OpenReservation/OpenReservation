@@ -1,4 +1,4 @@
-﻿namespace OpenReservation.Helpers;
+namespace OpenReservation.Helpers;
 
 public class SearchHelperModel
 {
@@ -7,7 +7,7 @@ public class SearchHelperModel
     /// <summary>
     /// 当前页码索引
     /// </summary>
-    public int PageIndex
+    public int PageNumber
     {
         get => _pageNumber;
         set

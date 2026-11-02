@@ -21,6 +21,7 @@ namespace OpenReservation.API;
 /// <summary>
 /// 公告 API
 /// </summary>
+[Route("/api/v1/notices")]
 public class NoticeController(ILogger<NoticeController> logger, IEFRepository<ReservationDbContext, Notice> repository)
     : ApiControllerBase(logger)
 {
@@ -32,8 +33,21 @@ public class NoticeController(ILogger<NoticeController> logger, IEFRepository<Re
     /// <param name="pageSize">pageSize</param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetAsync(string keyword, int pageNumber = 1, int pageSize = 10)
+    public async Task<IActionResult> GetAsync(
+        [FromQuery] string keyword,
+        [FromQuery] int? pageNumber = null,
+        [FromQuery] int pageSize = 10)
     {
+        var pageNumberValue = pageNumber.GetValueOrDefault(1);
+        if (pageNumberValue <= 0)
+        {
+            pageNumberValue = 1;
+        }
+        if (pageSize <= 0)
+        {
+            pageSize = 10;
+        }
+
         var predict = ExpressionHelper.True<Notice>();
         if (!string.IsNullOrWhiteSpace(keyword))
         {
@@ -49,7 +63,7 @@ public class NoticeController(ILogger<NoticeController> logger, IEFRepository<Re
             }, queryBuilder => queryBuilder
                 .WithPredict(predict)
                 .WithOrderBy(q => q.OrderByDescending(n => n.NoticePublishTime))
-            , pageNumber, pageSize, HttpContext.RequestAborted);
+            , pageNumberValue, pageSize, HttpContext.RequestAborted);
 
         return Ok(result);
     }

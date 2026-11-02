@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +17,7 @@ namespace OpenReservation.AdminLogic.Controllers;
 public class NoticeController(ILogger<NoticeController> logger, OperLogHelper operLogHelper, IBLLNotice bLlNotice)
     : AdminBaseController(logger, operLogHelper)
 {
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
@@ -27,6 +28,7 @@ public class NoticeController(ILogger<NoticeController> logger, OperLogHelper op
     /// </summary>
     /// <param name="search">查询信息</param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult List([FromQuery] SearchHelperModel search)
     {
         Expression<Func<Notice, bool>> whereExpression = (n => true);
@@ -36,7 +38,7 @@ public class NoticeController(ILogger<NoticeController> logger, OperLogHelper op
         }
         try
         {
-            var list = bLlNotice.Paged(search.PageIndex, search.PageSize,
+            var list = bLlNotice.Paged(search.PageNumber, search.PageSize,
                 whereExpression, n => n.NoticePublishTime);
             return View(list.ToPagedList());
         }
@@ -127,6 +129,7 @@ public class NoticeController(ILogger<NoticeController> logger, OperLogHelper op
     /// </summary>
     /// <param name="path">路径</param>
     /// <returns></returns>
+    [HttpGet]
     public JsonResult IsPathAvailable(string path)
     {
         if (string.IsNullOrEmpty(path))
@@ -162,6 +165,7 @@ public class NoticeController(ILogger<NoticeController> logger, OperLogHelper op
         return View(model);
     }
 
+    [HttpPost]
     public JsonResult Delete(Guid noticeId)
     {
         var result = bLlNotice.Update(new Notice() { NoticeId = noticeId, IsDeleted = true, UpdateBy = UserName, UpdateTime = DateTime.UtcNow }, n => n.IsDeleted);

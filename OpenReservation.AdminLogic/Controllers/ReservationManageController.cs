@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,11 +24,13 @@ public class ReservationManageController(
     IBLLReservation bLlReservation)
     : AdminBaseController(logger, operLogHelper)
 {
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
     }
 
+    [HttpGet]
     public ActionResult Reservate()
     {
         var places = HttpContext.RequestServices.GetRequiredService<IBLLReservationPlace>()
@@ -81,6 +83,7 @@ public class ReservationManageController(
     /// </summary>
     /// <param name="search">搜索查询条件</param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult List(SearchHelperModel search)
     {
         Action<WeihanLi.EntityFramework.EFRepositoryQueryBuilder<Reservation>> queryBuilderAction = queryBuilder =>
@@ -114,7 +117,7 @@ public class ReservationManageController(
                 ReservationPersonName = x.ReservationPersonName,
                 ReservationPersonPhone = x.ReservationPersonPhone,
                 ReservationStatus = x.ReservationStatus,
-            }, queryBuilderAction, search.PageIndex, search.PageSize);
+            }, queryBuilderAction, search.PageNumber, search.PageSize);
         var dataList = list.ToPagedList();
         return View(dataList);
     }
@@ -125,17 +128,10 @@ public class ReservationManageController(
     /// <param name="beginDate">开始日期</param>
     /// <param name="endDate">结束日期</param>
     /// <returns></returns>
+    [HttpGet]
     public async Task<FileContentResult> ExportReservations(DateTime? beginDate, DateTime? endDate)
     {
-        Expression<Func<Reservation, bool>> whereExpression = r => true;
-        if (beginDate.HasValue)
-        {
-            whereExpression = whereExpression.And(r => r.ReservationForDate >= beginDate);
-        }
-        if (endDate.HasValue)
-        {
-            whereExpression = whereExpression.And(r => r.ReservationForDate <= beginDate);
-        }
+        var whereExpression = ReservationExportFilter.Create(beginDate, endDate);
 
         var reservations = await bLlReservation.GetResultAsync(x => new ReservationListViewModel
         {

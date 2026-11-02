@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Localization
 @inject IViewLocalizer Localizer
 @inject IStringLocalizer<SharedResource> SharedLocalizer
@@ -30,13 +30,13 @@
     <script>
         var pageSize = 10;
 
-        function loadData(pageIndex) {
+        function loadData(pageNumber) {
             $("#div_main").html('<br /><img src="/images/loading.gif" /> @(SharedLocalizer["LoadingTip"])');
-            if (!pageIndex) {
-                pageIndex = 1;
+            if (!pageNumber) {
+                pageNumber = 1;
             }
             $.get("/Account/UserReservationList",
-                { "pageNumber": pageIndex, "pageSize": pageSize },
+                { "pageNumber": pageNumber, "pageSize": pageSize },
                 function (data, status) {
                     if (status === "success") {
                         $("#div_main").html(data);

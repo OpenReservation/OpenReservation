@@ -1,4 +1,4 @@
-﻿@using OpenReservation.Models
+@using OpenReservation.Models
 @using OpenReservation.ViewModels
 @using Microsoft.Extensions.Localization
 @using WeihanLi.Extensions
@@ -82,4 +82,4 @@
         </tbody>
     </table>
 }
-@Html.Pager(Model.Pager, pageIndex => $"javascript:loadData({pageIndex})", "PagerPartial", PagingDisplayMode.IfNeeded)
+@Html.Pager(Model.Pager, pageNumber => $"javascript:loadData({pageNumber})", "PagerPartial", PagingDisplayMode.IfNeeded)

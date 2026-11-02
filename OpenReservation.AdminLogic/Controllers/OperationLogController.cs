@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +27,7 @@ public class OperationLogController(
     /// 操作日志首页
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
@@ -37,6 +38,7 @@ public class OperationLogController(
     /// </summary>
     /// <param name="search">查询搜索条件</param>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult List(SearchHelperModel search)
     {
         Expression<Func<OperationLog, bool>> whereLambda = (l => true);
@@ -49,7 +51,7 @@ public class OperationLogController(
         {
             whereLambda = whereLambda.And(l => l.LogContent.Contains(search.SearchItem2.Trim()));
         }
-        var logList = bLlOperationLog.Paged(search.PageIndex, search.PageSize,
+        var logList = bLlOperationLog.Paged(search.PageNumber, search.PageSize,
             whereLambda, l => l.OperTime);
         var dataList = logList.ToPagedList();
         return View(dataList);

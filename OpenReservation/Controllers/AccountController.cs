@@ -32,6 +32,7 @@ public class AccountController(ILogger<AccountController> logger) : FrontBaseCon
     }
 
     [Authorize]
+    [HttpGet]
     public async Task<ActionResult> UserReservationList(
         [FromQuery] int pageNumber,
         [FromQuery] int pageSize,

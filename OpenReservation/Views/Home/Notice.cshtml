@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Localization
 @inject IViewLocalizer Localizer
 @inject IStringLocalizer<SharedResource> SharedLocalizer
@@ -18,19 +18,19 @@
 </div>
 @section scripts{
     <script>
-        var pageSize = 10, pageIndex = 1;
+        var pageSize = 10, pageNumber = 1;
 
         function loadData(pIndex) {
             if (!pIndex) {
-                pageIndex = 1;
+                pageNumber = 1;
             } else {
-                pageIndex = pIndex;
+                pageNumber = pIndex;
             }
             $("#div_main").html('<br /><img src="/images/loading.gif" /> @(SharedLocalizer["LoadingTip"])');
             $.ajax({
                 url: "/Home/NoticeList",
                 data: {
-                    "PageIndex": pageIndex,
+                    "PageNumber": pageNumber,
                     "PageSize": pageSize,
                     "SearchItem1": $("#title").val()
                 },

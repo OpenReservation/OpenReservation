@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OpenReservation.AdminLogic.ViewModels;
 using OpenReservation.Business;
@@ -25,6 +25,7 @@ public class DisabledPeriodController(
     /// 禁用预约时间段首页
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult Index()
     {
         return View();
@@ -34,8 +35,18 @@ public class DisabledPeriodController(
     /// 禁用预约时间段列表
     /// </summary>
     /// <returns></returns>
-    public ActionResult List(int activeStatus, int pageIndex, int pageSize)
+    [HttpGet]
+    public ActionResult List(int activeStatus, int pageNumber, int pageSize)
     {
+        if (pageNumber <= 0)
+        {
+            pageNumber = 1;
+        }
+        if (pageSize <= 0)
+        {
+            pageSize = 10;
+        }
+
         Expression<Func<DisabledPeriod, bool>> whereLambda = (p => true);
         if (activeStatus > 0)
         {
@@ -49,7 +60,7 @@ public class DisabledPeriodController(
             }
         }
 
-        var pageList = bllDisabledPeriod.Paged(pageIndex, pageSize,
+        var pageList = bllDisabledPeriod.Paged(pageNumber, pageSize,
             whereLambda, p => p.UpdatedTime);
         var data = pageList.ToPagedList();
         return View(data);
@@ -120,6 +131,7 @@ public class DisabledPeriodController(
     /// <param name="periodId">时间段id</param>
     /// <param name="status">状态</param>
     /// <returns></returns>
+    [HttpPost]
     public JsonResult UpdatePeriodStatus(Guid periodId, int status)
     {
         var result = new Result<bool>();
@@ -159,6 +171,7 @@ public class DisabledPeriodController(
     /// </summary>
     /// <param name="periodId">时间段id</param>
     /// <returns></returns>
+    [HttpPost]
     public JsonResult DeletePeriod(Guid periodId)
     {
         var count = bllDisabledPeriod.Delete(new DisabledPeriod() { PeriodId = periodId });

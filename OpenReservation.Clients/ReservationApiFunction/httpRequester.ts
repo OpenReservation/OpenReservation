@@ -3,13 +3,15 @@ import * as got from 'got';
 
 export class HttpRequester{    
     public static async GetResponse(url:string, method:string, headers:OutgoingHttpHeaders, body?:string): Promise<HttpResponse> {        
-        headers["host"]= undefined;
-        console.log(`request info, url: ${url}, method: ${method}, headers: ${JSON.stringify(headers)}`);
+        const forwardedHeaders = { ...headers };
+        delete forwardedHeaders.host;
+        console.log(`request info, url: ${url}, method: ${method}`);
 
         let result = await got.default(url,{
             body: body,
             method: method,
-            headers: headers
+            headers: forwardedHeaders,
+            throwHttpErrors: false
         });
         var response = new HttpResponse();
         response.statusCode = result.statusCode;

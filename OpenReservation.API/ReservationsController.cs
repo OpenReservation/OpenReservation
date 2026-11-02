@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ using WeihanLi.Web.Extensions;
 
 namespace OpenReservation.API;
 
+[Route("/api/v1/reservations")]
 public class ReservationsController(
     ILogger<ReservationsController> logger,
     IEFRepository<ReservationDbContext, Reservation> repository)
@@ -28,8 +30,21 @@ public class ReservationsController(
     /// <param name="pageNumber">pageNumber</param>
     /// <param name="pageSize">pageSize</param>
     [HttpGet]
-    public async Task<IActionResult> GetAsync(string phone, int pageNumber = 1, int pageSize = 10)
+    public async Task<IActionResult> GetAsync(
+        [FromQuery] string phone,
+        [FromQuery] int? pageNumber = null,
+        [FromQuery] int pageSize = 10)
     {
+        var pageNumberValue = pageNumber.GetValueOrDefault(1);
+        if (pageNumberValue <= 0)
+        {
+            pageNumberValue = 1;
+        }
+        if (pageSize <= 0)
+        {
+            pageSize = 10;
+        }
+
         Expression<Func<Reservation, bool>> predict = n => n.ReservationStatus != ReservationStatus.Canceled;
         if (!string.IsNullOrWhiteSpace(phone))
         {
@@ -58,7 +73,7 @@ public class ReservationsController(
                     .ThenByDescending(a => a.ReservationTime)
                 )
                 .WithInclude(q => q.Include(x => x.Place))
-            , pageNumber, pageSize, HttpContext.RequestAborted);
+            , pageNumberValue, pageSize, HttpContext.RequestAborted);
 
         foreach (var model in result.Data)
         {
@@ -134,13 +149,9 @@ public class ReservationsController(
             },
             r => r.ReservationStatus);
 
-        var status = updateResult > 0
-                ? ResultStatus.Success
-                : ResultStatus.InternalError;
-        return new Result()
-        {
-            Status = status,
-        }.GetRestResult();
+        return updateResult > 0
+            ? NoContent()
+            : Problem(statusCode: StatusCodes.Status500InternalServerError);
     }
 
     /// <summary>
@@ -149,11 +160,14 @@ public class ReservationsController(
     [Authorize(Policy = "ReservationApi")]
     [HttpGet("user")]
     [ResponseCache(CacheProfileName = "noCache")]
-    public async Task<IActionResult> GetUserReservations(int pageNumber = 1, int pageSize = 10)
+    public async Task<IActionResult> GetUserReservations(
+        [FromQuery] int? pageNumber = null,
+        [FromQuery] int pageSize = 10)
     {
-        if (pageNumber <= 0)
+        var pageNumberValue = pageNumber.GetValueOrDefault(1);
+        if (pageNumberValue <= 0)
         {
-            pageNumber = 1;
+            pageNumberValue = 1;
         }
         if (pageSize <= 0)
         {
@@ -180,7 +194,7 @@ public class ReservationsController(
                 .WithOrderBy(q => q.OrderByDescending(a => a.ReservationForDate)
                     .ThenByDescending(a => a.ReservationTime))
                 .WithInclude(q => q.Include(x => x.Place))
-            , pageNumber, pageSize, HttpContext.RequestAborted);
+            , pageNumberValue, pageSize, HttpContext.RequestAborted);
 
         return Ok(result);
     }
@@ -208,7 +222,7 @@ public class ReservationsController(
         if (!isCodeValid)
         {
             result.Msg = "验证码有误, 请重新验证";
-            return Ok(result);
+            return BadRequest(result);
         }
         try
         {
@@ -227,8 +241,12 @@ public class ReservationsController(
         {
             Logger.Error(ex, $"Make reservation exception: {ex.Message}");
             result.Status = ResultStatus.InternalError;
-            result.Msg = ex.Message;
+            result.Msg = "预约服务暂时不可用";
         }
-        return Ok(result);
+        return result.Status == ResultStatus.Success
+            ? StatusCode(StatusCodes.Status201Created, result)
+            : result.Status == ResultStatus.BadRequest
+                ? BadRequest(result)
+                : Problem(statusCode: StatusCodes.Status500InternalServerError);
     }
 }

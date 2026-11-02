@@ -17,7 +17,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task GetReservationList()
     {
-        var result = await Client.GetFromJsonAsync<PagedListResult<ReservationListViewModel>>("/api/reservations");
+        var result = await Client.GetFromJsonAsync<PagedListResult<ReservationListViewModel>>("/api/v1/reservations?pageNumber=1&pageSize=10");
         Assert.NotNull(result);
     }
 
@@ -45,7 +45,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
         request.Content = new StringContent($@"{{""reservationUnit"":""nnnnn"",""reservationActivityContent"":""13211112222"",""reservationPersonName"":""谢谢谢"",""reservationPersonPhone"":""13211112222"",""reservationPlaceId"":""f9833d13-a57f-4bc0-9197-232113667ece"",""reservationPlaceName"":""第一多功能厅"",""reservationForDate"":""2020-06-13"",""reservationForTime"":""10:00~12:00"",""reservationForTimeIds"":""1""}}", Encoding.UTF8, "application/json");
 
         using var response = await Client.SendAsync(request);
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 
     [Fact]

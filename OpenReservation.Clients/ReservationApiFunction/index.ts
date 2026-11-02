@@ -1,39 +1,59 @@
 import { HttpRequester } from './httpRequester';
-import { OutgoingHttpHeaders } from 'http';
 
 const apiBaseUrl = "https://reservation.weihanli.xyz";
 
-async function main (event: any, context: any, callback: any): Promise<object> {
-    console.log(event);
-
-    let queryString = "";
-    if (event.queryString) {
-        queryString = "?";
-        let i = 0;
-        for (var key in event.queryString) {
-            if (i > 0) {
-                queryString += `&`;
-            } else {
-                i++;
-            }
-            queryString += `${key}=${event.queryString[key]}`;
-        }
+export function getApiPath(path: string): string {
+    const normalizedPath = path.toLowerCase();
+    if (normalizedPath === "/api/notice" || normalizedPath.startsWith("/api/notice/")) {
+        return `/api/v1/notices${path.substring("/api/notice".length)}`;
+    }
+    if (normalizedPath === "/api/reservation" || normalizedPath.startsWith("/api/reservation/")) {
+        return `/api/v1/reservations${path.substring("/api/reservation".length)}`;
+    }
+    if (normalizedPath.startsWith("/api/reservationplaces/")) {
+        const resourcePath = path.substring("/api/reservationPlaces".length);
+        return resourcePath.endsWith("/periods")
+            ? `/api/v1/reservation-places${resourcePath.substring(0, resourcePath.length - "/periods".length)}/availability`
+            : `/api/v1/reservation-places${resourcePath}`;
+    }
+    if (normalizedPath === "/api/reservationplaces") {
+        return "/api/v1/reservation-places";
     }
 
+    return path;
+}
+
+export function getQueryString(query: any, path: string): string {
+    if (!query) {
+        return "";
+    }
+
+    const parameters = Object.keys(query).map(key => {
+        const parameterName = path.toLowerCase().startsWith("/api/v1/") && key === "dt" && path.endsWith("/availability")
+                ? "date"
+                : key;
+        return `${encodeURIComponent(parameterName)}=${encodeURIComponent(query[key])}`;
+    });
+    return parameters.length > 0 ? `?${parameters.join("&")}` : "";
+}
+
+async function main (event: any, context: any, callback: any): Promise<object> {
     if((<string>event.path).startsWith(`${event.requestContext.path}`)){
         event.path = (<string>event.path).replace(`${event.requestContext.path}`, '');
     }
 
-    let url = `${apiBaseUrl}${event.path}${queryString}`;
+    const apiPath = getApiPath(event.path);
+    const queryString = getQueryString(event.queryString, apiPath);
+    let url = `${apiBaseUrl}${apiPath}${queryString}`;
     let ip:string = event.requestContext.sourceIp;
     if(ip){
         event.headers["X-Forwarded-For"] = ip;
         event.headers["X-Real-IP"] = ip;
     }
-    console.log(`request url: ${url}, method: ${event.httpMethod}, sourceIp: ${ip}`);
+    console.log(`forwarding ${event.httpMethod} request from ${ip}`);
     
     let response = await HttpRequester.GetResponse(url, event.httpMethod, event.headers, event.body);
-    console.log(`response: ${JSON.stringify(response)}`);
+    console.log(`upstream response status: ${response.statusCode}`);
     
     return {
         isBase64: false,

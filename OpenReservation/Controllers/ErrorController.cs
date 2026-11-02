@@ -10,6 +10,7 @@ public class ErrorController(ILogger<ErrorController> logger) : FrontBaseControl
     /// 404
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     public ActionResult NotFound(string errorPath)
     {
         Response.StatusCode = 404;

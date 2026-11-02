@@ -1,4 +1,4 @@
-﻿@model IPagedListModel<OpenReservation.Models.ReservationPlace>
+@model IPagedListModel<OpenReservation.Models.ReservationPlace>
 @{
     Layout = null;
 }
@@ -55,7 +55,7 @@
             }
         </tbody>
     </table>
-    @Html.Pager(Model.Pager, pageIndex => $"javascript:loadData({pageIndex})", "PagerPartial", PagingDisplayMode.IfNeeded)
+    @Html.Pager(Model.Pager, pageNumber => $"javascript:loadData({pageNumber})", "PagerPartial", PagingDisplayMode.IfNeeded)
 }
 else
 {

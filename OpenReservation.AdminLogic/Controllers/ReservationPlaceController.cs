@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +23,15 @@ public class ReservationPlaceController(
     IBLLReservationPeriod bLlReservationPeriod)
     : AdminBaseController(logger, operLogHelper)
 {
+    [HttpGet]
     public ActionResult Index() => View();
 
-    public ActionResult List(string placeName, int pageIndex, int pageSize)
+    [HttpGet]
+    public ActionResult List(string placeName, int pageNumber, int pageSize)
     {
-        if (pageIndex <= 0)
+        if (pageNumber <= 0)
         {
-            pageIndex = 1;
+            pageNumber = 1;
         }
         if (pageSize <= 0)
         {
@@ -40,7 +42,7 @@ public class ReservationPlaceController(
         {
             whereLambda = (p => p.PlaceName.Contains(placeName) && p.IsDel == false);
         }
-        var list = bLlReservationPlace.Paged(pageIndex, pageSize,
+        var list = bLlReservationPlace.Paged(pageNumber, pageSize,
             whereLambda, p => p.UpdateTime, false);
         var data = list.ToPagedList();
         return View(data);
@@ -53,6 +55,7 @@ public class ReservationPlaceController(
     /// <param name="newName">修改后的活动室名称</param>
     /// <param name="beforeName">修改之前的活动室名称</param>
     /// <returns></returns>
+    [HttpPost]
     public ActionResult UpdatePlaceName(Guid placeId, string newName, string beforeName)
     {
         if (string.IsNullOrEmpty(newName))
@@ -89,6 +92,7 @@ public class ReservationPlaceController(
         }
     }
 
+    [HttpPost]
     public ActionResult AddPlace(string placeName, Guid? duplicateFrom)
     {
         if (string.IsNullOrEmpty(placeName))
@@ -146,6 +150,7 @@ public class ReservationPlaceController(
     /// <param name="placeId">id </param>
     /// <param name="placeName"> 名称 </param>
     /// <returns></returns>
+    [HttpPost]
     public JsonResult DeletePlace(Guid placeId, string placeName)
     {
         if (string.IsNullOrEmpty(placeName))
@@ -179,6 +184,7 @@ public class ReservationPlaceController(
     /// <param name="placeName"> 名称 </param>
     /// <param name="status">状态，大于0启用，否则禁用</param>
     /// <returns></returns>
+    [HttpPost]
     public JsonResult UpdatePlaceStatus(Guid placeId, string placeName, int status)
     {
         if (string.IsNullOrEmpty(placeName))
@@ -225,6 +231,7 @@ public class ReservationPlaceController(
         ;
     }
 
+    [HttpGet]
     public ActionResult ReservationPeriod(Guid placeId)
     {
         ViewBag.PlaceId = placeId;
