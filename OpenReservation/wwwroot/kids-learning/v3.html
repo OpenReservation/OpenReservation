@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff7e8">
+<title>小小探险家 3.0｜三个月英语与数学成长营</title>
+<style>
+:root{--ink:#26334a;--muted:#68758b;--paper:#fff;--line:#e9e5dc;--orange:#ffad61;--blue:#8bd2ff;--green:#a7e8c8;--pink:#ffbdcb;--purple:#c8b8ff;--shadow:0 12px 32px #26334a12}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#fff2d9,#fffaf3 320px,#f4faff);font-family:"Arial Rounded MT Bold","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);line-height:1.55}
+button,select{font:inherit}button{cursor:pointer;border:0;transition:.15s}button:hover{filter:brightness(.98)}button:active{transform:scale(.985)}button:focus-visible,select:focus-visible{outline:3px solid #3286e8;outline-offset:2px}
+.wrap{max-width:1180px;margin:auto;padding:18px}.hero{position:relative;overflow:hidden;border-radius:28px;padding:26px;background:linear-gradient(115deg,#ffd18e,#fff0b2 50%,#b9e6ff);box-shadow:var(--shadow)}.hero:after{content:"🪐";position:absolute;right:25px;top:18px;font-size:clamp(55px,9vw,105px);transform:rotate(12deg)}.pill{display:inline-block;background:#ffffffb8;border-radius:99px;padding:5px 11px;font-size:13px;font-weight:800}.hero h1{font-size:clamp(29px,5vw,46px);line-height:1.15;margin:13px 0 8px;max-width:720px}.hero p{max-width:720px;margin:0;color:#46536a}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{background:var(--ink);color:white;border-radius:13px;padding:10px 15px;font-weight:800}.btn.alt{background:#ffffffd9;color:var(--ink)}.btn.orange{background:#ff9a52;color:#382b27}.btn.green{background:#dff8e9;color:#1c6b4c}.btn:disabled{opacity:.4;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:15px 0}.stat,.panel{background:var(--paper);border:1px solid #eee8df;border-radius:20px;box-shadow:var(--shadow)}.stat{padding:12px 14px;display:flex;gap:10px;align-items:center}.stat .emoji{font-size:27px}.stat strong{display:block;font-size:20px;line-height:1.2}.stat small{color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:15px;align-items:start}.side{display:grid;gap:14px}.panel{padding:17px}.panel h2{font-size:20px;margin:0 0 12px}.days{display:grid;gap:7px;max-height:68vh;overflow:auto;padding-right:3px}.day{display:flex;align-items:center;gap:9px;text-align:left;background:#f8f7f3;border:2px solid transparent;border-radius:13px;padding:10px;color:var(--ink);width:100%}.day.active{background:#fff0d9;border-color:#ffb966}.day .ico{font-size:24px}.day .meta{flex:1}.day b{display:block;font-size:14px}.day small{display:block;font-size:12px;color:var(--muted)}.modebar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.tab{border:2px solid var(--line);background:#fff;border-radius:99px;padding:8px 13px;font-weight:800;color:var(--muted)}.tab.active{background:#eaf7ff;border-color:#84cfff;color:var(--ink)}.tab[data-mode="math"].active{background:#e8fff2;border-color:#8ce0b7}.head{display:flex;gap:13px;align-items:flex-start}.heroicon{width:74px;height:74px;flex-shrink:0;border-radius:22px;background:#fff0d9;display:grid;place-items:center;font-size:41px}.head h2{font-size:clamp(23px,3vw,30px);margin:0}.head p{margin:4px 0;color:var(--muted)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chip{background:#f0f3f7;border-radius:99px;padding:4px 9px;font-size:12px;font-weight:800;color:#536077}.progress{height:8px;background:#eef0f1;border-radius:99px;overflow:hidden;margin:16px 0}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#ffb35f,#7bd8b2);transition:width .25s}.introgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}.info{padding:12px;border-radius:15px;background:#f5faff;border:1px solid #e2f0fc}.info b{display:block}.info span{font-size:13px;color:var(--muted)}.activity{border:1px solid var(--line);border-radius:18px;padding:15px;background:#fffefa}.activityhead{display:flex;align-items:center;gap:9px}.num{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#edf5ff;font-weight:900}.activity h3{margin:0;font-size:18px}.duration{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}.activitydesc{color:#536077;margin:8px 0 11px}.coach{padding:10px 12px;border-radius:0 12px 12px 0;border-left:4px solid var(--blue);background:#f3f9ff;font-size:14px;margin:10px 0}.quiz{padding:15px;border-radius:16px;background:#fff5e6;text-align:center}.qmeta{font-size:12px;color:var(--muted);font-weight:800}.question{font-size:clamp(21px,3vw,29px);font-weight:900;margin:7px 0 14px;line-height:1.35}.visual{font-size:clamp(25px,4vw,40px);letter-spacing:3px;min-height:40px;margin:5px 0}.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.choice{min-height:73px;background:#fff;border:2px solid #efdfc9;border-radius:14px;padding:10px;color:var(--ink);font-weight:800;font-size:17px;overflow-wrap:anywhere}.choice .em{display:block;font-size:26px;line-height:1.2;margin-bottom:4px}.choice.correct{border-color:#61c59a;background:#e8fff2}.choice.wrong{border-color:#ff9e9e;background:#fff0f0}.feedback{min-height:44px;margin:11px 0 0;font-weight:800}.feedback.good{color:#16845a}.feedback.bad{color:#b75a42}.feedback small{display:block;font-weight:500;color:#59677d;margin-top:3px}.quizactions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}.sectionfooter{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:13px}.soft{background:#f0f2f5;color:#4e5a6f;padding:9px 12px;border-radius:12px;font-weight:800}.tip{background:#fff9df;border:1px solid #f4e7a9;border-radius:15px;padding:12px;margin-top:12px;font-size:14px}.tip b{display:block;margin-bottom:3px}.timerrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.timer{font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}.tiny{font-size:12px;color:var(--muted)}.stars{font-size:24px;letter-spacing:2px}.finish{display:none;text-align:center;background:#eafff2;border:1px solid #c7f0d8;padding:18px;border-radius:18px;margin-top:14px}.finish.show{display:block}.finish .big{font-size:43px}.finish h3{margin:0}.finish p{margin:6px 0 12px}.finishgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:13px 0}.finishgrid div{background:#ffffffa8;border-radius:12px;padding:9px}.finishgrid strong{display:block;font-size:20px}.footer{text-align:center;color:var(--muted);font-size:12px;margin:20px 0 0}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}.side .panel:first-child{grid-column:1/-1}}@media(max-width:500px){.wrap{padding:10px}.hero{padding:21px}.hero:after{right:7px;opacity:.45}.panel{padding:13px}.side{grid-template-columns:1fr}.side .panel:first-child{grid-column:auto}.introgrid{grid-template-columns:1fr}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.choice:last-child:nth-child(odd){grid-column:1/-1}.head{gap:9px}.heroicon{width:59px;height:59px;font-size:32px}.stats{gap:7px}.stat{padding:9px}.stat .emoji{font-size:22px}.stat strong{font-size:17px}}@media print{body{background:white}.hero,.panel,.stat{box-shadow:none}.side,.hero-actions,.timerrow,.quizactions,.sectionfooter button{display:none!important}.layout{display:block}.activity{break-inside:avoid}}
+</style></head>
+<body><div class="wrap">
+<header class="hero"><span class="pill">🚀 家庭亲子课堂 · 4–6 岁可调整</span><h1>小小探险家 3.0<br>三个月英语 × 数学成长营</h1><p>连续 12 周、72 次亲子小冒险！从英语词汇与情景表达，到数字运算、规律推理和生活应用。每天约 30 分钟，边玩边学，循序渐进。</p><div class="hero-actions"><button class="btn" id="startBtn">🎯 开始冒险</button><button class="btn alt" id="printBtn">🖨️ 打印课程</button><button class="btn alt" id="resetBtn">↻ 重置进度</button></div></header>
+<div class="stats"><div class="stat"><span class="emoji">⭐</span><div><strong id="stars">0 颗</strong><small>获得的星星</small></div></div><div class="stat"><span class="emoji">🧭</span><div><strong id="done">0 / 72</strong><small>完成的主题</small></div></div><div class="stat"><span class="emoji">🧩</span><div><strong id="answered">0 题</strong><small>正确挑战题数</small></div></div><div class="stat"><span class="emoji">⏰</span><div><strong>约 30 分钟</strong><small>建议分段活动</small></div></div></div>
+<div class="layout"><aside class="side">
+<section class="panel"><h2>🗺️ 12 周冒险地图</h2><div class="days" id="days"></div><p class="tiny">共 12 周、72 个学习主题；每个主题 3 个活动，每个活动 4 道题。可按孩子状态灵活安排。</p></section>
+<section class="panel"><h2>⏳ 亲子计时器</h2><div class="timerrow"><span class="timer" id="timer">30:00</span><button class="btn orange" id="timerToggle">开始</button><button class="soft" id="timerReset">重置</button></div><p class="tiny">结束后记得留出洗漱、讲故事和放松时间。</p></section>
+<section class="panel"><h2>🏅 探险徽章</h2><div class="stars" id="badge">☆☆☆☆☆</div><p class="tiny" id="badgeText">答对问题、尝试表达，就能收集星星。</p><div class="tip"><b>💡 家长小窍门</b>先让孩子用实物操作，再点击答案。可以追问“你是怎么想的？”而不是只问对不对。</div></section>
+</aside><main class="panel">
+<div class="modebar"><button class="tab active" data-mode="english">🔤 英语冒险</button><button class="tab" data-mode="math">🔢 数学挑战</button><button class="tab" data-mode="review">🎉 综合闯关</button></div>
+<div id="lesson"></div><div class="finish" id="finish"><div class="big">🌟🎉🌟</div><h3>这个主题通关啦！</h3><p>太棒了！请孩子讲讲刚才是怎么想出来的。</p><div class="finishgrid"><div><strong id="finishCorrect">0</strong><span class="tiny">答对题数</span></div><div><strong id="finishTotal">0</strong><span class="tiny">挑战题数</span></div><div><strong id="finishStars">0</strong><span class="tiny">获得星星</span></div></div><button class="btn" id="finishNext">下一站 →</button></div>
+<div class="sectionfooter"><span class="tiny" id="status">每个活动包含多道题，可以重复练习。</span><div><button class="soft" id="prevBtn">← 上一活动</button> <button class="btn" id="nextBtn">下一个活动 →</button></div></div>
+</main></div><div class="footer">离线单文件 · 不收集个人数据 · 适龄启蒙建议：鼓励思考，不以速度和分数评价孩子。</div></div>
+<script>
+const Q=(q,visual,choices,ans,why)=>({q,visual,choices,ans,why});
+const weekThemes = [["颜色与形状", "颜色、形状、大小", "1–5 数量与点数", "玩具整理", "red, blue, yellow, circle, square", "1,2,3,4,5"], ["动物朋友", "动物、叫声、动作", "6–10 数字与比较", "动物园", "cat, dog, bird, fish, jump", "6,7,8,9,10"], ["我的身体", "身体部位、感官、动作", "数字分解与合成", "身体小侦探", "head, eyes, ears, hands, feet", "5=2+3, 4=1+3"], ["食物与餐桌", "水果、食物、喜好表达", "5 以内加减法", "小小餐厅", "apple, banana, bread, milk, yummy", "5以内"], ["家与日常", "房间、家具、日常动作", "10 以内加减法", "整理小能手", "bed, door, table, clean, sleep", "10以内"], ["交通与方向", "交通工具、方位词", "空间位置与路线", "城市交通", "car, bus, train, stop, go", "left, right, near, far"], ["天气与季节", "天气、衣物、感受", "规律与分类", "天气观察站", "sunny, rainy, cloudy, hot, cold", "AB, AAB, ABC"], ["职业与工具", "职业、工具、工作动作", "测量与比较", "职业体验日", "doctor, cook, teacher, build, help", "长短、高矮、轻重"], ["自然探索", "植物、昆虫、自然词汇", "图形组合与空间", "自然观察员", "tree, flower, leaf, bee, grow", "图形拼搭"], ["商店与钱币", "购物、请求、数量表达", "生活中的加减与钱币", "迷你超市", "How much?, please, thank you, want", "10以内购物"], ["故事与时间", "故事顺序、时间词、情绪", "时间顺序与多步推理", "故事剧场", "first, next, then, happy, tired", "先后、推理"], ["我的小小毕业展", "复习表达、介绍自己", "综合应用与挑战", "小小毕业典礼", "I can…, I like…, My name is…", "综合挑战"]];
+const dayPlan = [["周一", "🔤", "英语", "english", "英语探索日"], ["周二", "🔢", "数学", "math", "数学实验室"], ["周三", "🗣️", "英语", "english", "开口表达日"], ["周四", "🧩", "数学", "math", "动脑挑战日"], ["周五", "🌈", "综合", "review", "生活应用日"], ["周六", "🏆", "综合", "review", "每周闯关日"]];
+const vocab = [
+ ["red","blue","yellow","green","circle","square","big","small"],
+ ["cat","dog","bird","fish","rabbit","lion","jump","swim"],
+ ["head","eyes","ears","nose","hands","feet","see","hear"],
+ ["apple","banana","bread","milk","rice","egg","yummy","hungry"],
+ ["bed","door","table","chair","kitchen","bathroom","clean","sleep"],
+ ["car","bus","train","bike","boat","plane","left","right"],
+ ["sunny","rainy","cloudy","windy","hot","cold","coat","umbrella"],
+ ["doctor","cook","teacher","builder","farmer","driver","help","work"],
+ ["tree","flower","leaf","bee","butterfly","seed","grow","green"],
+ ["apple","bread","milk","juice","please","thank you","buy","coin"],
+ ["first","next","then","finally","happy","sad","morning","night"],
+ ["hello","my name","I like","I can","thank you","goodbye","friend","learn"]
+];
+const zhWords = [
+ ["红色","蓝色","黄色","绿色","圆形","正方形","大","小"],
+ ["猫","狗","鸟","鱼","兔子","狮子","跳","游泳"],
+ ["头","眼睛","耳朵","鼻子","手","脚","看","听"],
+ ["苹果","香蕉","面包","牛奶","米饭","鸡蛋","好吃","饿"],
+ ["床","门","桌子","椅子","厨房","浴室","整理","睡觉"],
+ ["汽车","公交车","火车","自行车","船","飞机","左边","右边"],
+ ["晴天","下雨","多云","有风","热","冷","外套","雨伞"],
+ ["医生","厨师","老师","建筑工人","农民","司机","帮助","工作"],
+ ["树","花","叶子","蜜蜂","蝴蝶","种子","生长","绿色"],
+ ["苹果","面包","牛奶","果汁","请","谢谢","购买","硬币"],
+ ["首先","接下来","然后","最后","开心","难过","早上","晚上"],
+ ["你好","我的名字","我喜欢","我会","谢谢","再见","朋友","学习"]
+];
+function makeQs(kind, w, d, a) {
+ const base = w*2+d+a;
+ if(kind==="eng") {
+   const words=vocab[w], zh=zhWords[w], i=(base*2)%words.length, j=(i+1)%words.length, k=(i+2)%words.length;
+   return [
+    Q(`Which word means “${zh[i]}”?`,"", [words[i],words[j],words[k]],0,`${words[i]} 表示“${zh[i]}”。`),
+    Q(`Find “${words[j]}”.`,"🔎", [words[k],words[j],words[i]],1,`看到或听到 ${words[j]} 时，试着指向对应图片或实物。`),
+    Q(`Which pair belongs to this week's topic?`,"", [words[i]+" / "+words[j], "pizza / rocket", "pencil / laptop"],0,"把本周学过的词语放在一起复习。"),
+    Q(`Can you say: “I like ${words[k]}”?`,"🗣️", ["I like "+words[k], "I am "+words[j], "I blue "+words[i]],0,`试着完整说出：I like ${words[k]}。`)
+   ];
+ }
+ const n = Math.min(10, 3 + w);
+ if(kind==="math") {
+   if(w<2) {
+    const count=3+(base%3);
+    return [
+    Q("Count the objects.","⭐".repeat(count),[String(count-1),String(count),String(count+1)],1,"一个一个点数，数到最后一个就是总数。"),
+    Q("Which number is bigger?","",["2","4","3"],1,"4 比 2 和 3 都大。"),
+    Q("There are 2 toys. Add 1 more. How many?","🧸🧸 + 🧸",["2","3","4"],1,"2 加 1 等于 3。"),
+    Q("Show the number with your fingers.","✋",["1","3","5"],2,"伸出 5 根手指，边数边确认。")
+    ];
+   }
+   if(w<5) {
+    const x=Math.min(8,3+(base%4)), y=1+(base%2);
+    return [
+     Q(`There are ${x} blocks. Add ${y}. How many now?`,`🧱 ${x} + ${y}`,[String(x+y),String(x+y-1),String(x+y+1)],0,`${x} 加 ${y} 等于 ${x+y}。可以用积木摆出来。`),
+     Q(`You have ${x+y} apples and eat ${y}. How many left?`,"🍎", [String(x),String(x+y),String(y)],0,`${x+y} 减 ${y} 等于 ${x}。`),
+     Q("Which number is the smallest?","",["7","5","8"],1,"比较数字时，可以从小到大排一排。"),
+     Q("Complete the counting.","2, 4, 6, __",["7","8","9"],1,"每次增加 2，下一项是 8。")
+    ];
+   }
+   if(w<9) {
+    const x=4+(base%5), y=1+(base%3);
+    return [
+     Q(`A ribbon is ${x} blocks long and another is ${y} blocks long. Total?`,"📏", [String(x+y),String(x),String(y)],0,`把两段长度合起来：${x} + ${y} = ${x+y}。`),
+     Q(`There are ${x+y} birds. ${y} fly away. How many remain?`,"🐦", [String(x),String(y),String(x+y)],0,`${x+y} - ${y} = ${x}。`),
+     Q("Which is longer?","",["一支铅笔","一枚纽扣","一颗米粒"],0,"用眼睛比较，也可以把物品的一端对齐。"),
+     Q("Complete the pattern.","🔴 🔵 🔴 🔵 🔴 __",["🔴","🔵","🟢"],1,"红、蓝交替出现，下一项是蓝色。")
+    ];
+   }
+   const x=5+(base%4), y=2+(base%3);
+   return [
+    Q(`You have ${x} coins and spend ${y}. How many remain?`,"🪙", [String(x-y),String(x+y),String(y)],0,`${x} - ${y} = ${x-y}。`),
+    Q(`Buy an item for ${y} coins and another for 2 coins. Total?`,"🛒", [String(y+2),String(y),String(y+3)],0,`${y} + 2 = ${y+2}。`),
+    Q("Which clue helps you solve a problem with two steps?","",["先算第一步，再算第二步","随便猜","只看最后一个数字"],0,"把复杂问题拆成小步骤，一步一步解决。"),
+    Q("There are 2 red, 3 blue and 1 green blocks. How many altogether?","🔴🔴 🔵🔵🔵 🟢",["5","6","7"],1,"2 + 3 + 1 = 6。")
+   ];
+ }
+ return [
+  Q("Which one does not belong?","🍎 🚗 🍌 🍐",["苹果","汽车","香蕉"],1,"其他是水果，汽车不是水果。"),
+  Q("What comes next?","🟡 🟡 🔵 🟡 🟡 🔵 __",["🟡","🔵","🔴"],0,"观察重复的三个图案，下一项回到黄色。"),
+  Q("Which happens first?","",["穿鞋出门","先出门再穿鞋","睡觉后吃早餐"],0,"按生活经验判断事情发生的先后顺序。"),
+  Q("How can you explain your answer?","",["我观察到……","因为我随便选","我不知道也不试"],0,"鼓励孩子说出观察到的线索和理由。")
+ ];
+}
+function buildCurriculum() {
+ const lessons=[];
+ weekThemes.forEach((theme,w)=>{
+  dayPlan.forEach((dp,d)=>{
+   const subject=dp[2], mode=dp[3], icon=dp[1];
+   const titles = subject==="英语"
+    ? ["听一听，找一找","单词寻宝","开口说一说"]
+    : subject==="数学"
+    ? ["动手数一数","数字小实验","挑战思考题"]
+    : ["主题小任务","生活情景游戏","综合闯关"];
+   const acts=titles.map((title,a)=>({
+    title: title+" · "+theme[0],
+    time:["约 7 分钟","约 8 分钟","约 8 分钟"][a],
+    desc: subject==="英语"
+      ? `围绕“${theme[1]}”观察家中物品、图片或玩具。先听家长说，再指认，最后尝试自己表达。`
+      : subject==="数学"
+      ? `围绕“${theme[2]}”使用积木、手指、玩具或纸笔操作。先摆一摆，再说出计算或判断过程。`
+      : `把“${theme[3]}”变成亲子小游戏，结合英语表达和数学观察，鼓励孩子自己提出办法。`,
+    say: subject==="英语"
+      ? (a===0 ? `“Listen and point!”（听一听，指一指）` : a===1 ? `“Can you find ${vocab[w][(w+a)%8]}?”` : `“I can say it! / I like it!”`)
+      : subject==="数学"
+      ? (a===0 ? "“请用实物摆出来，我们一起数一数。”" : a===1 ? "“你能用另一种方法得到答案吗？”" : "“你是怎么想出来的？说给我听听。”")
+      : "“我们一起完成任务吧！你想先做哪一步？”",
+    qs: makeQs(subject==="英语"?"eng":subject==="数学"?"math":"review",w,d,a)
+   }));
+   const goal=subject==="英语" ? `理解并尝试使用与“${theme[1]}”相关的词语和短句。`
+     : subject==="数学" ? `练习“${theme[2]}”，能够动手操作并说出自己的思路。`
+     : `把本周的“${theme[0]}”与生活联系起来，练习观察、表达和解决问题。`;
+   lessons.push({
+    day:`第${w+1}周 · ${dp[0]}`,
+    icon,subject,mode,
+    title:`${theme[0]}｜${dp[4]}`,
+    sub:`第 ${w+1} 周：${theme[1]} · ${theme[2]}`,
+    tags:[`第${w+1}周`,theme[0],subject==="英语"?"听说表达":subject==="数学"?"动手思考":"生活应用"],
+    goal,
+    materials:"积木、玩具、绘本、彩纸或家中常见物品",
+    coach:"以游戏和交流为主。孩子疲惫时可减少题目；答错先给提示，不要求反复机械练习。",
+    acts
+   });
+  });
+ });
+ return lessons;
+}
+const lessons=buildCurriculum();
+let dayIndex=0,actIndex=0,qIndex=0,mode="english",answeredSet=new Set(),correctSet=new Set(),completed=new Set(),timerSecs=1800,timerId=null,running=false,sessionCorrect=0,sessionTotal=0;
+const $=id=>document.getElementById(id);
+function lesson(){return lessons[dayIndex]}function act(){return lesson().acts[actIndex]}function question(){return act().qs[qIndex]}
+function key(){return `${dayIndex}-${actIndex}-${qIndex}`}
+function renderDays(){$("days").innerHTML=lessons.map((l,i)=>`<button class="day ${i===dayIndex?'active':''}" data-day="${i}"><span class="ico">${l.icon}</span><span class="meta"><b>${l.day} · ${l.title}</b><small>${l.subject} · 3 个活动</small></span><span>${completed.has(i)?"✅":"›"}</span></button>`).join("");document.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>selectDay(+b.dataset.day));$("done").textContent=`${completed.size} / ${lessons.length}`;$("stars").textContent=`${correctSet.size} 颗`;$("answered").textContent=`${correctSet.size} 题`;$("badge").textContent=Array.from({length:5},(_,i)=>i<Math.min(5,correctSet.size)?"⭐":"☆").join("");$("badgeText").textContent=correctSet.size===0?"答对问题、尝试表达，就能收集星星。":correctSet.size<5?`已经收集 ${correctSet.size} 颗星，继续挑战！`:"闪闪发光的学习小达人！"}
+function selectDay(i){dayIndex=i;actIndex=0;qIndex=0;mode=lesson().mode;sessionCorrect=0;sessionTotal=0;$("finish").classList.remove("show");renderAll()}
+function setMode(m){mode=m;let i=lessons.findIndex((l,idx)=>l.mode===m&&idx>=dayIndex);if(i<0)i=lessons.findIndex(l=>l.mode===m);if(i>=0)selectDay(i);else{mode=m;renderAll()}}
+function renderAll(){renderDays();document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));renderLesson()}
+function renderLesson(){
+ const l=lesson(),a=act(),q=question(),isDone=completed.has(dayIndex);
+ const choices=q.choices.map((c,i)=>{let text=typeof c==="string"?c:c;return `<button class="choice" data-answer="${i}">${text}</button>`}).join("");
+ $("lesson").innerHTML=`<div class="head"><div class="heroicon">${l.icon}</div><div><div class="tiny">${l.day} · ${l.subject} · 活动 ${actIndex+1}/${l.acts.length}</div><h2>${l.title}</h2><p>${l.sub}</p><div class="chips">${l.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div></div></div>
+ <div class="progress"><div style="width:${Math.round(((actIndex+qIndex/ a.qs.length)/l.acts.length)*100)}%"></div></div>
+ <div class="introgrid"><div class="info"><b>🎯 今日目标</b><span>${l.goal}</span></div><div class="info"><b>🧺 准备材料</b><span>${l.materials}</span></div></div>
+ <section class="activity"><div class="activityhead"><span class="num">${actIndex+1}</span><h3>${a.title}</h3><span class="duration">⏱ ${a.time}</span></div><p class="activitydesc">${a.desc}</p><div class="coach"><b>🗣️ 家长引导：</b>${a.say}<br><span class="tiny">${l.coach}</span></div>
+ <div class="quiz"><div class="qmeta">第 ${qIndex+1} 题 / 本活动 ${a.qs.length} 题</div><div class="question">${q.q}</div>${q.visual?`<div class="visual">${q.visual}</div>`:""}<div class="choices">${choices}</div><div class="feedback" id="feedback" aria-live="polite">选一个答案试试看！答错也没关系。</div><div class="quizactions"><button class="soft" id="retry">↻ 再想一想</button><button class="btn green" id="nextQ" disabled>${qIndex<a.qs.length-1?"下一题 →":"完成本活动 ✓"}</button></div></div>
+ <div class="tip"><b>🧠 延伸玩法</b>${l.subject==="数学"||l.subject==="综合"?"请用积木、手指或玩具实际摆出来，再问孩子“你为什么这样选？”":"鼓励孩子指认实物并尝试说英文。先听懂和敢开口，再慢慢练习完整句子。"}</div></section>`;
+ document.querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>choose(+b.dataset.answer,b,q));
+ $("retry").onclick=()=>{document.querySelectorAll(".choice").forEach(b=>b.classList.remove("wrong"));$("feedback").className="feedback";$("feedback").textContent="慢慢观察线索，可以用实物试一试。"};
+ $("nextQ").onclick=advanceQuestion;
+ $("prevBtn").disabled=dayIndex===0&&actIndex===0;
+ $("nextBtn").textContent=actIndex<l.acts.length-1?"下一个活动 →":dayIndex<lessons.length-1?"下一站课程 →":"重新开始";
+ $("status").textContent=isDone?"这个主题已通关，可以继续复习。":"每道题答对会收集一颗星；活动可以重复练习。";
+ $("finish").classList.toggle("show",isDone&&actIndex===l.acts.length-1);
+}
+function choose(i,b,q){
+ const already=answeredSet.has(key());document.querySelectorAll(".choice").forEach(x=>x.classList.remove("correct","wrong"));
+ const fb=$("feedback");if(i===q.ans){b.classList.add("correct");fb.className="feedback good";fb.innerHTML=`🎉 答对啦！${q.why?`<small>${q.why}</small>`:""}${already?"":"<small>获得一颗星！</small>"}`;if(!already){answeredSet.add(key());correctSet.add(key());sessionCorrect++;sessionTotal++;renderDays()}else{sessionTotal++}$("nextQ").disabled=false}
+ else{b.classList.add("wrong");fb.className="feedback bad";fb.innerHTML=`再想一想！${q.why?`<small>提示：${q.why}</small>`:""}<small>可以请家长陪你摆一摆、数一数。</small>`;if(!answeredSet.has(key()))sessionTotal++;$("nextQ").disabled=true}
+}
+function advanceQuestion(){if(qIndex<act().qs.length-1){qIndex++;renderLesson();return}if(actIndex<lesson().acts.length-1){actIndex++;qIndex=0;renderLesson();return}completed.add(dayIndex);renderDays();$("finish").classList.add("show");$("finishCorrect").textContent=sessionCorrect;$("finishTotal").textContent=sessionTotal;$("finishStars").textContent=correctSet.size;$("status").textContent="主题完成！不必追求全对，讨论思路也很重要。";$("nextBtn").textContent=dayIndex<lessons.length-1?"下一站课程 →":"重新开始课程";renderDays()}
+function nextActivity(){if(actIndex<lesson().acts.length-1){actIndex++;qIndex=0;renderLesson()}else if(dayIndex<lessons.length-1){selectDay(dayIndex+1)}else selectDay(0)}
+function prevActivity(){if(qIndex>0){qIndex--;renderLesson()}else if(actIndex>0){actIndex--;qIndex=0;renderLesson()}else if(dayIndex>0){dayIndex--;actIndex=lesson().acts.length-1;qIndex=0;mode=lesson().mode;renderAll()}}
+$("startBtn").onclick=()=>$("lesson").scrollIntoView({behavior:"smooth",block:"start"});$("printBtn").onclick=()=>window.print();$("resetBtn").onclick=()=>{if(confirm("确定重置全部 12 周的学习星星和完成记录吗？")){answeredSet.clear();correctSet.clear();completed.clear();dayIndex=0;actIndex=0;qIndex=0;mode="english";sessionCorrect=0;sessionTotal=0;renderAll()}};
+$("prevBtn").onclick=prevActivity;$("nextBtn").onclick=nextActivity;$("finishNext").onclick=nextActivity;document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+function updateTimer(){$("timer").textContent=`${String(Math.floor(timerSecs/60)).padStart(2,"0")}:${String(timerSecs%60).padStart(2,"0")}`}
+$("timerToggle").onclick=()=>{if(running){clearInterval(timerId);running=false;$("timerToggle").textContent="继续"}else{if(timerSecs<=0)timerSecs=1800;running=true;$("timerToggle").textContent="暂停";timerId=setInterval(()=>{timerSecs--;updateTimer();if(timerSecs<=0){clearInterval(timerId);running=false;$("timerToggle").textContent="重新开始";alert("亲子学习时间到啦！可以收拾材料，准备放松和睡前故事。")}},1000)}};
+$("timerReset").onclick=()=>{clearInterval(timerId);running=false;timerSecs=1800;updateTimer();$("timerToggle").textContent="开始"};
+renderAll();updateTimer();
+</script></body></html>
