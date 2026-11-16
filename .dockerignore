@@ -21,6 +21,5 @@ images/
 k8s/
 OpenReservation.API.Test/
 OpenReservation.Clients/
-OpenReservation.SourceGeneratorTest/
-OpenReservation.UnitTest/
+OpenReservation.*Test/
 tests/
