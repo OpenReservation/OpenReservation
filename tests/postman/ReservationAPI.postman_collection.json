@@ -23,7 +23,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/Notice?keyword={{keyword}}&pageNumber=1&pageSize=10",
+									"raw": "{{baseUrl}}/api/v1/notice?keyword={{keyword}}&pageNumber=1&pageSize=10",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -57,7 +57,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/Notice?keyword=<string>&pageNumber=1&pageSize=10",
+											"raw": "{{baseUrl}}/api/v1/notice?keyword=<string>&pageNumber=1&pageSize=10",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -116,7 +116,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/Notice/:path",
+									"raw": "{{baseUrl}}/api/v1/notice/:path",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -141,7 +141,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "https://reservation.weihanli.xyz/api/Notice/:path",
+											"raw": "https://reservation.weihanli.xyz/api/v1/notice/:path",
 											"protocol": "https",
 											"host": [
 												"reservation",
@@ -173,7 +173,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/Notice/:path",
+											"raw": "{{baseUrl}}/api/v1/notice/:path",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -219,7 +219,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/Reservation?phone={{phone}}&pageNumber=1&pageSize=10",
+									"raw": "{{baseUrl}}/api/v1/reservation?phone={{phone}}&pageNumber=1&pageSize=10",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -253,7 +253,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/Reservation?phone=<string>&pageNumber=1&pageSize=10",
+											"raw": "{{baseUrl}}/api/v1/reservation?phone=<string>&pageNumber=1&pageSize=10",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -307,7 +307,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/ReservationPlace",
+									"raw": "{{baseUrl}}/api/v1/reservationPlace",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -324,7 +324,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/ReservationPlace",
+											"raw": "{{baseUrl}}/api/v1/reservationPlace",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -357,7 +357,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/ReservationPlace/:placeId/periods?dt={{date}}",
+									"raw": "{{baseUrl}}/api/v1/reservationPlace/:placeId/periods?dt={{date}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -389,7 +389,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/ReservationPlace/:placeId/periods?dt=<dateTime>",
+											"raw": "{{baseUrl}}/api/v1/reservationPlace/:placeId/periods?dt=<dateTime>",
 											"host": [
 												"{{baseUrl}}"
 											],

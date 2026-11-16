@@ -1,11 +1,7 @@
 ﻿using OpenReservation.ViewModels;
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
-using WeihanLi.Common;
 using WeihanLi.Common.Models;
 using WeihanLi.Common.Services;
 using Xunit;
@@ -24,7 +20,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task MakeReservationWithInvalidRequest()
     {
-        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/reservations");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/reservations");
         request.Headers.TryAddWithoutValidation("UserId", GuidIdGenerator.Instance.NewId());
         request.Headers.TryAddWithoutValidation("UserName", Environment.UserName);
 
@@ -37,7 +33,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task MakeReservationWithUserInfo()
     {
-        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/reservations");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/reservations");
         request.Headers.TryAddWithoutValidation("UserId", GuidIdGenerator.Instance.NewId());
         request.Headers.TryAddWithoutValidation("UserName", Environment.UserName);
         request.Headers.TryAddWithoutValidation("UserRoles", "User,ReservationManager");
@@ -51,7 +47,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task MakeReservationWithInvalidUserInfo()
     {
-        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/reservations");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/reservations");
         request.Headers.TryAddWithoutValidation("UserName", Environment.UserName);
         request.Content = JsonContent.Create(new
         {
@@ -73,7 +69,7 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task MakeReservationWithoutUserInfo()
     {
-        using var response = await Client.PostAsJsonAsync("/api/reservations", new
+        using var response = await Client.PostAsJsonAsync("/api/v1/reservations", new
         {
             reservationUnit = "nnnnn",
             reservationActivityContent = "13211112222",

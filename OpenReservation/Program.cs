@@ -27,7 +27,7 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 startup.Configure(
-    app, app.Services.GetRequiredService<ILoggerFactory>(), 
+    app, app.Services.GetRequiredService<ILoggerFactory>(),
     app.Services.GetRequiredService<IEventBus>()
     );
 

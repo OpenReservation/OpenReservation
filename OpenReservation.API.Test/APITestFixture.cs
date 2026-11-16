@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-
-namespace OpenReservation.API.Test;
+﻿namespace OpenReservation.API.Test;
 
 public class APITestFixture(IServiceProvider serviceProvider, HttpClient httpClient)
 {

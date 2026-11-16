@@ -2,10 +2,8 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace OpenReservation.Common;
 

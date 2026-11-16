@@ -1,5 +1,4 @@
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +11,11 @@ using OpenReservation.Helpers;
 using OpenReservation.Models;
 using OpenReservation.ViewModels;
 using OpenReservation.WorkContexts;
-using WeihanLi.Web.Pager;
+using System.Linq.Expressions;
 using WeihanLi.Common.Event;
 using WeihanLi.Common.Models;
 using WeihanLi.Extensions;
+using WeihanLi.Web.Pager;
 
 namespace OpenReservation.Controllers;
 
@@ -255,7 +255,7 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
     public async Task<ActionResult> NoticeDetails(string path, [FromServices] IEventBus eventBus, [FromServices] IMemoryCache cacheClient)
     {
         path = path?.Trim();
-        if (string.IsNullOrEmpty(path)) 
+        if (string.IsNullOrEmpty(path))
             return RedirectToAction("Notice");
 
         var cacheKey = "notice_" + path;
@@ -263,12 +263,12 @@ public class HomeController(ILogger<HomeController> logger, IBLLReservation rese
             cacheKey,
             _ => HttpContext.RequestServices.GetRequiredService<IBLLNotice>()
                 .FetchAsync(n => n.NoticeCustomPath == path.Trim()), new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
-            });
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                });
         if (notice is null)
             return RedirectToAction("Notice");
-        
+
         await eventBus.PublishAsync(new NoticeViewEvent { NoticeId = notice.NoticeId });
         return View(notice);
     }

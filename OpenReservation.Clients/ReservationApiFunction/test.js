@@ -1,10 +1,10 @@
 const assert = require("assert");
 const { getApiPath, getQueryString } = require("./dist/index");
 
-assert.strictEqual(getApiPath("/api/notice"), "/api/v1/notices");
-assert.strictEqual(getApiPath("/api/reservation/123"), "/api/v1/reservations/123");
+assert.strictEqual(getApiPath("/api/v1/notice"), "/api/v1/notices");
+assert.strictEqual(getApiPath("/api/v1/reservation/123"), "/api/v1/reservations/123");
 assert.strictEqual(
-    getApiPath("/api/reservationPlaces/123/periods"),
+    getApiPath("/api/v1/reservationPlaces/123/periods"),
     "/api/v1/reservation-places/123/availability");
 assert.strictEqual(
     getQueryString({ pageNumber: 2, keyword: "a b" }, "/api/v1/notices"),

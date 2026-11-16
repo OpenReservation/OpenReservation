@@ -30,7 +30,7 @@ spec:
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /api/notice
+              path: /api/v1/notice
               port: http
             initialDelaySeconds: 60
             periodSeconds: 10

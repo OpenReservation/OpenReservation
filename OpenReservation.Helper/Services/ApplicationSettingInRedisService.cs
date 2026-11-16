@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WeihanLi.Redis;
+﻿using WeihanLi.Redis;
 
 namespace OpenReservation.Services;
 

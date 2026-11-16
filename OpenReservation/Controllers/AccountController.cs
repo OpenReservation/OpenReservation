@@ -1,17 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using OpenReservation.Business;
 using OpenReservation.Models;
 using OpenReservation.ViewModels;
 using OpenReservation.WorkContexts;
-using WeihanLi.Web.Pager;
+using System.Linq.Expressions;
 using WeihanLi.Web.Extensions;
+using WeihanLi.Web.Pager;
 
 namespace OpenReservation.Controllers;
 

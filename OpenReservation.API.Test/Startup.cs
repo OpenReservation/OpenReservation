@@ -86,7 +86,7 @@ public class Startup
             .AddEventHandler<NoticeViewEvent, NoticeViewEventHandler>()
             .AddEventHandler<OperationLogEvent, OperationLogEventHandler>()
             ;
-        
+
         // RegisterAssemblyModules
         services.RegisterAssemblyModules();
 

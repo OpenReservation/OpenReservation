@@ -6,7 +6,7 @@ using WeihanLi.Npoi.Configurations;
 
 namespace OpenReservation.ExcelMappingProfiles;
 
-public class ReservationListMappingProfile: IMappingProfile<ReservationListViewModel>
+public class ReservationListMappingProfile : IMappingProfile<ReservationListViewModel>
 {
     public void Configure(IExcelConfiguration<ReservationListViewModel> settings)
     {

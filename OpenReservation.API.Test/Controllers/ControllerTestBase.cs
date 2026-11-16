@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-
-namespace OpenReservation.API.Test.Controllers;
+﻿namespace OpenReservation.API.Test.Controllers;
 
 public abstract class ControllerTestBase(APITestFixture fixture)
 {

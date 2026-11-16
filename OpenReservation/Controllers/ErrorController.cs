@@ -1,6 +1,5 @@
-﻿using OpenReservation.WorkContexts;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using OpenReservation.WorkContexts;
 
 namespace OpenReservation.Controllers;
 

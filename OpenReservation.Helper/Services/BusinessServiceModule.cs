@@ -19,12 +19,12 @@ public class BusinessServiceModule : IServiceModule
         services.TryAddSingleton<OperLogHelper>();
 
         services.RegisterAssemblyTypesAsImplementedInterfaces(
-            ServiceLifetime.Scoped, 
+            ServiceLifetime.Scoped,
             typeof(IBLLNotice).Assembly
             );
         // register eventHandlers
-        services.RegisterAssemblyTypes(t => 
-            t is { IsAbstract: false, IsClass: true } 
+        services.RegisterAssemblyTypes(t =>
+            t is { IsAbstract: false, IsClass: true }
             && t.IsAssignableTo<IEventHandler>(), typeof(NoticeViewEventHandler).Assembly
             );
     }

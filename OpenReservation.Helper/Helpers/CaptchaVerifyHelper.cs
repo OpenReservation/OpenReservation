@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using OpenReservation.Common;
 using WeihanLi.Extensions;
 using WeihanLi.Web.Extensions;

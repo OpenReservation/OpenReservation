@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using WeihanLi.EntityFramework.Audit;
+﻿using WeihanLi.EntityFramework.Audit;
 using WeihanLi.Web.Extensions;
 
 namespace OpenReservation.AuditEnrichers;

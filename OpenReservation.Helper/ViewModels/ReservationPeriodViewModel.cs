@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenReservation.ViewModels;
+﻿namespace OpenReservation.ViewModels;
 
 public class ReservationPeriodViewModel
 {

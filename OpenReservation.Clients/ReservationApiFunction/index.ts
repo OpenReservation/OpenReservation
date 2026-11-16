@@ -4,19 +4,19 @@ const apiBaseUrl = "https://reservation.weihanli.xyz";
 
 export function getApiPath(path: string): string {
     const normalizedPath = path.toLowerCase();
-    if (normalizedPath === "/api/notice" || normalizedPath.startsWith("/api/notice/")) {
-        return `/api/v1/notices${path.substring("/api/notice".length)}`;
+    if (normalizedPath === "/api/v1/notice" || normalizedPath.startsWith("/api/v1/notice/")) {
+        return `/api/v1/notices${path.substring("/api/v1/notice".length)}`;
     }
-    if (normalizedPath === "/api/reservation" || normalizedPath.startsWith("/api/reservation/")) {
-        return `/api/v1/reservations${path.substring("/api/reservation".length)}`;
+    if (normalizedPath === "/api/v1/reservation" || normalizedPath.startsWith("/api/v1/reservation/")) {
+        return `/api/v1/reservations${path.substring("/api/v1/reservation".length)}`;
     }
-    if (normalizedPath.startsWith("/api/reservationplaces/")) {
-        const resourcePath = path.substring("/api/reservationPlaces".length);
+    if (normalizedPath.startsWith("/api/v1/reservationplaces/")) {
+        const resourcePath = path.substring("/api/v1/reservationPlaces".length);
         return resourcePath.endsWith("/periods")
             ? `/api/v1/reservation-places${resourcePath.substring(0, resourcePath.length - "/periods".length)}/availability`
             : `/api/v1/reservation-places${resourcePath}`;
     }
-    if (normalizedPath === "/api/reservationplaces") {
+    if (normalizedPath === "/api/v1/reservationplaces") {
         return "/api/v1/reservation-places";
     }
 
@@ -68,7 +68,7 @@ exports.main_handler = main;
 // (async () => {
 //   process.env.NODE_TLS_REJECT_UNAUTHORIZED="0";
 //   var event:any = new Object();
-//   event.path = "/api/reservation";
+//   event.path = "/api/v1/reservation";
 //   event.headers = {
 //       "accept":"*/*",
 //       "accept-encoding":"gzip, deflate, br",

@@ -15,7 +15,7 @@ public class ReservationDbContext(DbContextOptions<ReservationDbContext> options
         modelBuilder.Entity<Notice>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Reservation>().HasQueryFilter(r => r.ReservationStatus != ReservationStatus.Deleted);
 
-        if(!IsInMemoryProvider())
+        if (!IsInMemoryProvider())
         {
             // create index on path for better query performance
             modelBuilder.Entity<Notice>().HasIndex(x => x.NoticeCustomPath);

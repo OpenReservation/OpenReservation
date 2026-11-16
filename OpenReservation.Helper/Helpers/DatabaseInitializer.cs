@@ -67,10 +67,10 @@ public static class DatabaseInitializer
         // Places
         dbContext.ReservationPlaces.AddRange(
             new ReservationPlace
-            { 
-                PlaceId = placeId, 
-                PlaceName = "第一多功能厅", 
-                UpdateBy = "System", 
+            {
+                PlaceId = placeId,
+                PlaceName = "第一多功能厅",
+                UpdateBy = "System",
                 PlaceIndex = 0,
                 MaxReservationPeriodNum = 2
             },

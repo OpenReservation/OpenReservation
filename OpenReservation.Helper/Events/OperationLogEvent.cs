@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OpenReservation.Database;
 using OpenReservation.Helpers;
 using OpenReservation.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using WeihanLi.Common.Event;
 using WeihanLi.EntityFramework;
 using WeihanLi.Extensions;

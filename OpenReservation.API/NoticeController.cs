@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +10,6 @@ using WeihanLi.Common.Event;
 using WeihanLi.Common.Helpers;
 using WeihanLi.EntityFramework;
 using WeihanLi.Extensions;
-using WeihanLi.Redis;
 
 namespace OpenReservation.API;
 
@@ -55,14 +50,14 @@ public class NoticeController(ILogger<NoticeController> logger, IEFRepository<Re
             predict = predict.And(n => n.NoticeTitle.Contains(keyword));
         }
         var result = await repository.GetPagedListResultAsync(x => new
-            {
-                x.NoticeTitle,
-                x.NoticeCustomPath,
-                x.NoticePublishTime,
-                x.NoticeExternalLink
-            }, queryBuilder => queryBuilder
-                .WithPredict(predict)
-                .WithOrderBy(q => q.OrderByDescending(n => n.NoticePublishTime))
+        {
+            x.NoticeTitle,
+            x.NoticeCustomPath,
+            x.NoticePublishTime,
+            x.NoticeExternalLink
+        }, queryBuilder => queryBuilder
+            .WithPredict(predict)
+            .WithOrderBy(q => q.OrderByDescending(n => n.NoticePublishTime))
             , pageNumberValue, pageSize, HttpContext.RequestAborted);
 
         return Ok(result);
@@ -78,11 +73,11 @@ public class NoticeController(ILogger<NoticeController> logger, IEFRepository<Re
     /// <returns></returns>
     [HttpGet("{path}")]
     [ResponseCache(CacheProfileName = "noCache")]
-    public async Task<IActionResult> GetByPath(string path, CancellationToken cancellationToken, 
+    public async Task<IActionResult> GetByPath(string path, CancellationToken cancellationToken,
         [FromServices] IEventBus eventBus, [FromServices] IMemoryCache cacheClient)
     {
         path = path?.Trim();
-        if (string.IsNullOrEmpty(path)) 
+        if (string.IsNullOrEmpty(path))
             return BadRequest("Notice");
 
         var cacheKey = "notice_" + path;
@@ -90,9 +85,9 @@ public class NoticeController(ILogger<NoticeController> logger, IEFRepository<Re
             cacheKey,
             _ => HttpContext.RequestServices.GetRequiredService<IBLLNotice>()
                 .FetchAsync(n => n.NoticeCustomPath == path.Trim(), cancellationToken), new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
-            });
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                });
         if (notice is null)
         {
             return NotFound();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenReservation.Database;
@@ -25,16 +21,16 @@ public class ReservationPlacesController(
     public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
     {
         var result = await repository.GetResultAsync(p => new
-            {
-                p.PlaceName,
-                p.PlaceIndex,
-                p.PlaceId,
-                p.MaxReservationPeriodNum
-            }, builder => builder
-                .WithPredict(x => x.IsActive)
-                .WithOrderBy(x => x
-                    .OrderBy(a => a.PlaceIndex)
-                    .ThenBy(a => a.UpdateTime)),
+        {
+            p.PlaceName,
+            p.PlaceIndex,
+            p.PlaceId,
+            p.MaxReservationPeriodNum
+        }, builder => builder
+            .WithPredict(x => x.IsActive)
+            .WithOrderBy(x => x
+                .OrderBy(a => a.PlaceIndex)
+                .ThenBy(a => a.UpdateTime)),
             cancellationToken);
         return Ok(result);
     }

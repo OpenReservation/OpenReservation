@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpenReservation.AdminLogic.Controllers;
+using System.Reflection;
 using Xunit;
 
 namespace OpenReservation.UnitTest;

@@ -1,7 +1,7 @@
-﻿using OpenReservation.WechatAPI.Model;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenReservation.WechatAPI.Model;
 
 namespace OpenReservation.WechatAPI.Controllers;
 
@@ -12,7 +12,7 @@ public class HomeController(ILogger<HomeController> logger) : WeChatBaseControll
 {
     [HttpGet]
     [ActionName("Index")]
-    public async Task GetAsync([FromQuery]string echoStr)
+    public async Task GetAsync([FromQuery] string echoStr)
     {
         try
         {
@@ -33,7 +33,7 @@ public class HomeController(ILogger<HomeController> logger) : WeChatBaseControll
     /// <param name="model">微信消息</param>
     [HttpPost]
     [ActionName("Index")]
-    public async Task<ActionResult> PostAsync([FromQuery]WechatMsgRequestModel model)
+    public async Task<ActionResult> PostAsync([FromQuery] WechatMsgRequestModel model)
     {
         using (var ms = new MemoryStream())
         {

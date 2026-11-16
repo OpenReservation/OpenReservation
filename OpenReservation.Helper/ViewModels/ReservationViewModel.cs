@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
 using OpenReservation.Models;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using WeihanLi.Common.Json;
 
 namespace OpenReservation.ViewModels;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using OpenReservation.Database;
+﻿using OpenReservation.Database;
 using WeihanLi.Common;
 using WeihanLi.Common.Event;
 using WeihanLi.Redis;

@@ -1,15 +1,14 @@
-using System;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OpenReservation.Business;
 using OpenReservation.Helpers;
 using OpenReservation.Models;
 using OpenReservation.WorkContexts;
+using System.Linq.Expressions;
+using WeihanLi.Extensions;
 using WeihanLi.Web.AccessControlHelper;
 using WeihanLi.Web.Pager;
-using WeihanLi.Extensions;
 
 namespace OpenReservation.AdminLogic.Controllers;
 

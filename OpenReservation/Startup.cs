@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Globalization;
-using IdentityServer4.AccessTokenValidation;
+﻿using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -23,6 +21,8 @@ using OpenReservation.Services;
 using Polly;
 using StackExchange.Redis;
 using System.Diagnostics.Metrics;
+using System.Globalization;
+using System.Net;
 using WeihanLi.Common;
 using WeihanLi.Common.Event;
 using WeihanLi.Common.Helpers;
@@ -163,7 +163,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
                     {
                         context.Properties.IsPersistent = true;
                     }
-                    
+
                     return Task.CompletedTask;
                 };
                 options.Events.OnRedirectToIdentityProvider = rc =>
@@ -212,7 +212,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
                 case DbType.Sqlite:
                     options.UseSqlite(connectionString ?? "Data Source=Reservation.db;Cache=Shared");
                     break;
-                
+
                 case DbType.Npgsql:
                     options.UseNpgsql(connectionString);
                     break;
@@ -264,7 +264,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
             ;
 
         var redisConfiguration = ConfigurationOptions.Parse(Configuration.GetRequiredConnectionString("Redis"));
-        var redisServers = redisConfiguration.EndPoints.Select(e => 
+        var redisServers = redisConfiguration.EndPoints.Select(e =>
         {
             return e switch
             {

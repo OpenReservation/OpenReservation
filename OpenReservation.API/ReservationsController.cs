@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ using OpenReservation.Database;
 using OpenReservation.Helpers;
 using OpenReservation.Models;
 using OpenReservation.ViewModels;
+using System.Linq.Expressions;
 using WeihanLi.Common.Helpers;
 using WeihanLi.Common.Models;
 using WeihanLi.EntityFramework;

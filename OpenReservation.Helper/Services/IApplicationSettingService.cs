@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OpenReservation.Services;
+﻿namespace OpenReservation.Services;
 
 public interface IApplicationSettingService
 {

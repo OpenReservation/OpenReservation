@@ -18,6 +18,6 @@ export let options = {
 const host = "http://localhost:65026";
 
 export default function () {
-  let res = http.get(`${host}/api/notice`);
+  let res = http.get(`${host}/api/v1/notice`);
   check(res, { 'status was 200': (r) => r.status == 200 });
 }

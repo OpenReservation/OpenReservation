@@ -1,15 +1,13 @@
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OpenReservation.Business;
 using OpenReservation.Helpers;
 using OpenReservation.Models;
 using OpenReservation.WorkContexts;
-using WeihanLi.Web.Pager;
+using System.Linq.Expressions;
 using WeihanLi.Extensions;
 using WeihanLi.Redis;
+using WeihanLi.Web.Pager;
 
 namespace OpenReservation.AdminLogic.Controllers;
 
@@ -128,7 +126,7 @@ public class ReservationPlaceController(
             if (isDuplicate)
             {
                 var periods = bLlReservationPeriod.Select(x => x.PlaceId == duplicateFrom);
-                foreach(var period in periods)
+                foreach (var period in periods)
                 {
                     period.PeriodId = Guid.NewGuid();
                     period.PlaceId = place.PlaceId;

@@ -2,9 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenReservation.Database;
 using OpenReservation.Models;
-using System;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace OpenReservation.API.Test.Controllers;

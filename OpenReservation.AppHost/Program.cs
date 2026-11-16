@@ -1,4 +1,4 @@
-var builder = DistributedApplication.CreateBuilder(args);
+﻿var builder = DistributedApplication.CreateBuilder(args);
 var reservation = builder.AddSqlServer("db")
     .WithDataVolume("reservation-volume")
     .WithLifetime(ContainerLifetime.Persistent)

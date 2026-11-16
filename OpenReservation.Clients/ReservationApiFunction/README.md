@@ -83,7 +83,7 @@ dist.zip
 <https://service-balxf7hr-1251288923.ap-shanghai.apigateway.myqcloud.com/release/reservationWxAppGateway/api/v1/notices>
 
 这个请求会实际转发到 <https://reservation.weihanli.xyz/api/v1/notices>。云函数也会将旧版
-`/api/notice`、`/api/reservation` 和 `/api/reservationPlaces` 路径迁移到对应的 v1 资源路径。
+`/api/v1/notice`、`/api/v1/reservation` 和 `/api/v1/reservationPlaces` 路径迁移到对应的 v1 资源路径。
 
 ## 实现原理
 

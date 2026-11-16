@@ -1,4 +1,4 @@
-namespace OpenReservation.Helpers;
+﻿namespace OpenReservation.Helpers;
 
 public class SearchHelperModel
 {
