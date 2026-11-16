@@ -41,6 +41,7 @@ public class Startup
 
     private void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMemoryCache();
         services.AddResponseCaching();
 
         services.AddControllers(options =>
