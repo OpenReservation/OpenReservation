@@ -10,13 +10,13 @@ export function getApiPath(path: string): string {
     if (normalizedPath === "/api/v1/reservation" || normalizedPath.startsWith("/api/v1/reservation/")) {
         return `/api/v1/reservations${path.substring("/api/v1/reservation".length)}`;
     }
-    if (normalizedPath.startsWith("/api/v1/reservationplaces/")) {
-        const resourcePath = path.substring("/api/v1/reservationPlaces".length);
+    if (normalizedPath.startsWith("/api/v1/reservation-places/")) {
+        const resourcePath = path.substring("/api/v1/reservation-places".length);
         return resourcePath.endsWith("/periods")
             ? `/api/v1/reservation-places${resourcePath.substring(0, resourcePath.length - "/periods".length)}/availability`
             : `/api/v1/reservation-places${resourcePath}`;
     }
-    if (normalizedPath === "/api/v1/reservationplaces") {
+    if (normalizedPath === "/api/v1/reservation-places") {
         return "/api/v1/reservation-places";
     }
 
