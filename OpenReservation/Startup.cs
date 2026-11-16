@@ -19,6 +19,7 @@ using OpenReservation.Helpers;
 using OpenReservation.Models;
 using OpenReservation.Services;
 using Polly;
+using Sentry;
 using StackExchange.Redis;
 using System.Diagnostics.Metrics;
 using System.Globalization;
@@ -49,6 +50,8 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddLogging(builder => builder.AddSentry(options => options.MinimumEventLevel = LogLevel.Error));
+
         services.Configure<CookiePolicyOptions>(options =>
         {
             options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
@@ -415,30 +418,30 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
         app.ApplicationServices.Initialize();
 
         // initialize settings
-        LoggingConfig(loggerFactory);
+        LoggingConfig(app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>());
         ExcelSettings();
     }
 
-    private void LoggingConfig(ILoggerFactory loggerFactory)
+    private void LoggingConfig(IHostApplicationLifetime applicationLifetime)
     {
-        loggerFactory
-            .AddSentry(options =>
+        var sentry = SentrySdk.Init(options =>
+        {
+            options.Dsn = Configuration.GetAppSetting("SentryClientKey");
+            options.Environment = Environment.EnvironmentName;
+            options.Debug = Environment.IsDevelopment();
+            options.SetBeforeSend(sentryEvent =>
             {
-                options.Dsn = Configuration.GetAppSetting("SentryClientKey");
-                options.Environment = Environment.EnvironmentName;
-                options.MinimumEventLevel = LogLevel.Error;
-                options.Debug = Environment.IsDevelopment();
-                options.SetBeforeSend(sentryEvent =>
+                // ignore TaskCanceledException/OperationCanceledException
+                if (sentryEvent.Exception is OperationCanceledException or TaskCanceledException)
                 {
-                    // ignore TaskCanceledException/OperationCanceledException
-                    if (sentryEvent.Exception is OperationCanceledException or TaskCanceledException)
-                    {
-                        return null;
-                    }
+                    return null;
+                }
 
-                    return sentryEvent;
-                });
+                return sentryEvent;
             });
+        });
+        applicationLifetime.ApplicationStopped.Register(sentry.Dispose);
+
     }
 
     private static void ExcelSettings()

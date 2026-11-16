@@ -188,7 +188,7 @@ public class HomeController(
         result["current_dir_path"] = currentDirPath;
         result["current_url"] = currentUrl;
         result["total_count"] = dirList.Length + fileList.Length;
-        var dirFileList = new List<Hashtable>();
+        List<Hashtable> dirFileList = [with(capacity: dirList.Length + fileList.Length)];
         result["file_list"] = dirFileList;
         for (var i = 0; i < dirList.Length; i++)
         {

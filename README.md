@@ -11,6 +11,9 @@
 
 目前使用 ASP.NET Core 开发, 部署在 Kubernetes 上
 
+开发需要 .NET 11 SDK（11.0.100 或更新的 11.0 SDK），使用 C# 15。
+EF Core 及数据库提供程序暂时保持在 10.x，等待 PostgreSQL EF 11 提供程序支持稳定版 EF 11。
+
 - 演示地址：<https://reservation.weihanli.xyz>
 - 新版预约客户端演示地址：<https://reservation-client.weihanli.xyz>  (angular + material SPA)
 - REST API Swagger：<https://reservation.weihanli.xyz/swagger>
