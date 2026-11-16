@@ -1,7 +1,7 @@
-﻿using OpenReservation.ViewModels;
+﻿using OpenReservation.Models;
+using OpenReservation.ViewModels;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text;
 using WeihanLi.Common.Models;
 using WeihanLi.Common.Services;
 using Xunit;
@@ -33,12 +33,27 @@ public class ReservationControllerTest(APITestFixture fixture) : ControllerTestB
     [Fact]
     public async Task MakeReservationWithUserInfo()
     {
+        var places = await Client.GetFromJsonAsync<ReservationPlace[]>("/api/v1/reservation-places");
+        var place = Assert.Single(places!, x => x.PlaceName == "第一多功能厅");
+
         using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/reservations");
         request.Headers.TryAddWithoutValidation("UserId", GuidIdGenerator.Instance.NewId());
         request.Headers.TryAddWithoutValidation("UserName", Environment.UserName);
         request.Headers.TryAddWithoutValidation("UserRoles", "User,ReservationManager");
+        request.Headers.TryAddWithoutValidation("captchaType", "None");
 
-        request.Content = new StringContent($@"{{""reservationUnit"":""nnnnn"",""reservationActivityContent"":""13211112222"",""reservationPersonName"":""谢谢谢"",""reservationPersonPhone"":""13211112222"",""reservationPlaceId"":""f9833d13-a57f-4bc0-9197-232113667ece"",""reservationPlaceName"":""第一多功能厅"",""reservationForDate"":""2020-06-13"",""reservationForTime"":""10:00~12:00"",""reservationForTimeIds"":""1""}}", Encoding.UTF8, "application/json");
+        request.Content = JsonContent.Create(new
+        {
+            reservationUnit = "nnnnn",
+            reservationActivityContent = "13211112222",
+            reservationPersonName = "谢谢谢",
+            reservationPersonPhone = "13211112222",
+            reservationPlaceId = place.PlaceId,
+            reservationPlaceName = place.PlaceName,
+            reservationForDate = TimeProvider.System.GetUtcNow().AddDays(5).ToString("yyyy-MM-dd"),
+            reservationForTime = "10:00~12:00",
+            reservationForTimeIds = "1"
+        });
 
         using var response = await Client.SendAsync(request);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);

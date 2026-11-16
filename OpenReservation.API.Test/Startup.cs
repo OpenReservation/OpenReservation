@@ -11,7 +11,10 @@ using OpenReservation.Common;
 using OpenReservation.Database;
 using OpenReservation.Events;
 using OpenReservation.Services;
+using System.Reflection;
+using WeihanLi.Common;
 using WeihanLi.Common.Event;
+using WeihanLi.Redis;
 using WeihanLi.Web.Authentication;
 using WeihanLi.Web.Authentication.HeaderAuthentication;
 
@@ -43,6 +46,7 @@ public class Startup
     {
         services.AddMemoryCache();
         services.AddResponseCaching();
+        services.AddSingleton<ICacheClient>(_ => DispatchProxy.Create<ICacheClient, TestCacheClient>());
 
         services.AddControllers(options =>
             {
@@ -117,6 +121,20 @@ public class Startup
             endpoints.MapControllers();
         });
 
+        DependencyResolver.SetDependencyResolver(app.ApplicationServices);
         TestDataInitializer.Initialize(app.ApplicationServices);
+    }
+
+    private class TestCacheClient : DispatchProxy
+    {
+        protected override object Invoke(MethodInfo targetMethod, object[] args)
+        {
+            if (targetMethod.Name == "GetOrSet")
+            {
+                return args.OfType<Delegate>().Single().DynamicInvoke();
+            }
+
+            throw new NotSupportedException($"Unsupported cache method: {targetMethod.Name}");
+        }
     }
 }
